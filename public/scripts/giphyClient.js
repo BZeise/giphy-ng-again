@@ -7,8 +7,21 @@ var myApp = angular.module('myApp', []);
 myApp.controller('GiphyController', function( GiphyService ) {
   var vm = this;
 
-  vm.testFunk = function() {
-    console.log( 'in testFunk' );
-    vm.dataWeWant = GiphyService.testVar();
+  vm.showRandom = function() {
+    console.log( 'in showRandom' );
+    GiphyService.getRandom().then(function(response){
+      console.log('in GiphyService.getRandom, response it:', response);
+      vm.gifToShow = GiphyService.randomGif;
+    });
+  }; // end showRandom
+
+  vm.showSearch = function() {
+    console.log( 'in showSearch' );
+    GiphyService.getSearch(vm.searchInput).then(function(response){
+      console.log('in GiphyService.getSearch, response it:', response);
+      vm.gifToShow = GiphyService.searchGif;
+
+    });
   };
+
 });
